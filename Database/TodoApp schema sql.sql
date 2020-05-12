@@ -4,33 +4,35 @@ go
 use todoApp
 go
 
-create table users (id int identity(100,1), 
-					fullName varchar(32) not null,
-					email varchar(64) primary key,
-					password varchar(64) not null,
-					authority varchar(32),
-					createdOn smalldatetime,
-					isAccountActive bit,
-					);
+create table users (
+	id int identity(100,1), 
+	fullName varchar(32) not null,
+	email varchar(64) primary key,
+	password varchar(64) not null,
+	authority varchar(32),
+	createOn smalldatetime,
+	isActive bit,
+);
 go
 
-create table todo(id int primary key identity(100,1),
-					title varchar(255) not null,
-					userEmail varchar(64) not null foreign key references users(email) on delete cascade on update cascade
+create table todo(
+	id int primary key identity(100,1),
+	title varchar(255) not null,
+	userEmail varchar(64) not null foreign key references users(email) on delete cascade on update cascade
 					);
 go
 
 create proc createUser
 	@fullName varchar(32),
 	@email varchar(64),
-	@pass varchar(64),
+	@password varchar(64),
 	@authority varchar(32) = 'ROLE_USER',
-	@isAccountActive bit = 1
+	@isActive bit = 1
 	
 as
 begin
-	insert into users(fullName,email,password, authority, accountCreatedOn,isAccountActive) 
-	values(@fullName, @email, @pass, @authority, GETDATE(), @isAccountActive);
+	insert into users(fullName,email,password, authority, createOn,isActive) 
+	values(@fullName, @email, @password, @authority, GETDATE(), @isActive);
 end
 go
 
@@ -74,7 +76,7 @@ go
 exec updateUser 'masbha@gmail.com', null, '456'
 go
 
-go
+
 create proc createTodo
 	@title varchar(255),
 	@userEmail varchar(32)
@@ -85,7 +87,7 @@ begin
 end
 go
 
-execute createTodo 'hello world','masbhauddi@gmail.com'
+execute createTodo 'hello puja','puja@gmail.com'
 go
 
 create proc updateTodo 

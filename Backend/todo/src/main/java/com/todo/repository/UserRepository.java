@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +58,60 @@ public class UserRepository {
 		}
 		
 		return userList;
+	}
+
+
+	public String postUser(User user) {
+		try {
+			Connection con = DriverManager.getConnection(url, userName, pass);
+			CallableStatement stmt = con.prepareCall("{call createUser(?,?,?,?,?)}");
+			
+			stmt.setString(1, user.getFullName());
+			stmt.setString(2, user.getEmail());
+			stmt.setString(3, user.getPassword());
+			stmt.setString(4, user.getAuthority());
+			stmt.setBoolean(5, user.isActive());
+			
+			stmt.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "Success";
+	}
+
+
+	public String updateUser(User user) {
+		try {
+			Connection con = DriverManager.getConnection(url, userName, pass);
+			
+			CallableStatement stmt = con.prepareCall("{call updateUser(?,?,?)}");
+			
+			stmt.setString(1, user.getEmail());
+			stmt.setString(2, user.getFullName());
+			stmt.setString(3, user.getPassword());
+			
+			stmt.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "Success";
+	}
+
+
+	public String deleteUser(User user) {
+		try {
+			Connection con = DriverManager.getConnection(url, userName, pass);
+			CallableStatement stmt = con.prepareCall("{call deleteUser(?)}");
+			
+			stmt.setString(1, user.getEmail());
+			stmt.execute();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "Success";
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User> {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -94,6 +94,17 @@ public class User {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		if (o.getId() == id) {
+			return 0;
+		} else if (o.getId() > id) {
+			return -1;
+		} else {
+			return 1;
+		}
 	}
 
 }

@@ -1,12 +1,9 @@
 package com.todo.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,18 +14,17 @@ public class Todo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User user;
+	private String userEmail;
 
 	public Todo() {
 		super();
 	}
 
-	public Todo(int id, String title, User user) {
+	public Todo(int id, String title, String userEmail) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.user = user;
+		this.userEmail = userEmail;
 	}
 
 	public int getId() {
@@ -47,17 +43,17 @@ public class Todo {
 		this.title = title;
 	}
 
-	public User getUserEmail() {
-		return user;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserEmail(User user) {
-		this.user = user;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", title=" + title + ", user=" + user + "]";
+		return "Todo [id=" + id + ", title=" + title + ", userEmail=" + userEmail + "]";
 	}
 
 }

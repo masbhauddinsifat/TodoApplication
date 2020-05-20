@@ -29,9 +29,9 @@ public class UserController {
 		return userService.getAllUser();
 	}
 	
-	@GetMapping("/user/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUser(id);
+	@GetMapping("/user/{email}")
+	public User getSingleUser(@PathVariable String email) {
+		return userService.getSingleUser(email);
 	}
 	
 	@PostMapping("/user")
@@ -39,12 +39,12 @@ public class UserController {
 		return userService.postUser(user);
 	}
 	
-	@PutMapping("/user/{id}")
+	@PutMapping("/user/{email}")
 	public String updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
 	}
 	
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/user/{email}")
 	public String deleteUser(@RequestBody User user) {
 		return userService.deleteUser(user);
 	}

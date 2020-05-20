@@ -39,14 +39,25 @@ go
 exec createUser 'masbha','masbha@gmail.com','123','ROLE_ADMIN'
 go
 
-create proc selectUser
+create proc selectAllUser
 as
 begin
 	select * from users
 end
 go
 
-exec selectUser
+exec selectAllUser
+go
+
+create proc selectSingleUser
+	@email varchar(64)
+as
+begin
+	select * from users where email = @email
+end
+go
+
+exec selectSingleUser 'masbha@gmail.com'
 go
 
 create proc deleteUser

@@ -24,16 +24,8 @@ public class UserService {
 		return user;
 	}
 
-	public User getUser(int id) {
-		List<User> userList = userRepository.getAllUser();
-		User expectedUser= null;
-		for (User user : userList) {
-			if(user.getId() == id) {
-				expectedUser = user;
-				break;
-			}
-		}
-		return expectedUser;
+	public User getSingleUser(String email) {
+		return userRepository.getSingleUser(email);
 	}
 
 	public String postUser(@Valid @NotNull User user) {

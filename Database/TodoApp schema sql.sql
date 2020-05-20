@@ -18,9 +18,12 @@ go
 create table todo(
 	id int primary key identity(100,1),
 	title varchar(255) not null,
+	isComplete bit,
+	createdOn date,
 	userEmail varchar(64) not null foreign key references users(email) on delete cascade on update cascade
-					);
+	);
 go
+
 
 create proc createUser
 	@fullName varchar(32),
@@ -88,39 +91,53 @@ exec updateUser 'masbha@gmail.com', null, '456'
 go
 
 
-create proc createTodo
+alter proc createTodo
 	@title varchar(255),
+	@isComplete bit,
 	@userEmail varchar(32)
+	
 as
 begin
-	insert into todo (title, userEmail)
-	values (@title, @userEmail)
+	insert into todo (title, isComplete, createdOn, userEmail)
+	values (@title, @isComplete, GETDATE(), @userEmail)
 end
 go
 
-execute createTodo 'hello puja','puja@gmail.com'
+execute createTodo 'mizan',1,'puja@gmail.com'
 go
 
 create proc updateTodo 
 	@id int,
-	@title varchar(255)
+	@title varchar(255),
+	@isComplete bit
 as
 begin
-	update todo set title = ISNULL(@title, title) where id = @id
+	update todo set title = ISNULL(@title, title), isComplete = ISNULL(@isComplete, isComplete) where id = @id
 end
 go
 
-exec updateTodo 101, 'updated hello world'
+exec updateTodo 109,null,1
 go
 
-create proc selectTodo
+create proc selectAllTodo
 as
 begin
 	select * from todo
 end
 go
 
-exec selectTodo
+exec selectAllTodo
+go
+
+create proc selectSingleTodo
+	@id int
+as
+begin
+	select * from todo where id = @id
+end
+go
+
+exec selectSingleTodo 110
 go
 
 create proc deleteTodo

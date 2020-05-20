@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +32,7 @@ public class TodoRepository {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
-			CallableStatement stmt = con.prepareCall("{call selectTodo}");
+			CallableStatement stmt = con.prepareCall("{call selectAllTodo}");
 
 			stmt.execute();
 			ResultSet resultSet = stmt.getResultSet();
@@ -39,9 +40,11 @@ public class TodoRepository {
 			while (resultSet.next()) {
 				int id = resultSet.getInt(1);
 				String title = resultSet.getString(2);
-				String userEmail = resultSet.getString(3);
+				boolean isComplete = resultSet.getBoolean(3);
+				Date createdOn = resultSet.getDate(4);
+				String userEmail = resultSet.getString(5);
 
-				Todo todo = new Todo(id, title, userEmail);
+				Todo todo = new Todo(id, title, isComplete, createdOn, userEmail);
 				todoList.add(todo);
 			}
 
@@ -55,13 +58,48 @@ public class TodoRepository {
 		return todoList;
 	}
 
+	public Todo getSingleTodo(int id) {
+		Todo todo = null;
+		
+		try {
+			Connection con = DriverManager.getConnection(url, userName, password);
+			
+			CallableStatement stmt = con.prepareCall("{call selectSingleTodo(?)}");
+			stmt.setInt(1, id);
+			
+			stmt.execute();
+			
+			ResultSet resultSet = stmt.getResultSet();
+			
+			while(resultSet.next()) {
+				int userId = resultSet.getInt(1);
+				String title = resultSet.getString(2);
+				boolean isComplete = resultSet.getBoolean(3);
+				Date createdOn = resultSet.getDate(4);
+				String userEmail = resultSet.getString(5);
+
+				todo = new Todo(userId, title, isComplete, createdOn, userEmail);
+			}
+			
+			resultSet.close();
+			stmt.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return todo;
+	}
+
+	
 	public String addTodo(Todo todo) {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
-			CallableStatement stmt = con.prepareCall("{call createTodo(?,?)}");
+			CallableStatement stmt = con.prepareCall("{call createTodo(?,?,?)}");
 			stmt.setString(1, todo.getTitle());
-			stmt.setString(2, todo.getUserEmail());
+			stmt.setBoolean(2, todo.isComplete());
+			stmt.setString(3, todo.getUserEmail());
 			stmt.execute();
 
 			stmt.close();
@@ -77,9 +115,11 @@ public class TodoRepository {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
-			CallableStatement stmt = con.prepareCall("{call updateTodo(?,?)}");
+			CallableStatement stmt = con.prepareCall("{call updateTodo(?,?,?)}");
 			stmt.setInt(1, todo.getId());
 			stmt.setString(2, todo.getTitle());
+			stmt.setBoolean(3, todo.isComplete());
+			
 			stmt.execute();
 
 			stmt.close();
@@ -105,5 +145,4 @@ public class TodoRepository {
 		return "Success";
 
 	}
-
 }

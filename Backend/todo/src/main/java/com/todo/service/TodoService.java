@@ -19,17 +19,8 @@ public class TodoService {
 
 	}
 
-	public Todo getTodo(int id) {
-		Todo expectedTodo = null;
-		List<Todo> todoList = todoRepository.getAllTodo();
-		
-		for (Todo todo : todoList) {
-			if(todo.getId() == id) {
-				expectedTodo = todo;
-				break;
-			}
-		}
-		return expectedTodo;
+	public Todo getSingleTodo(int id) {
+		return todoRepository.getSingleTodo(id);
 	}
 
 	public String addTodo(Todo todo) {

@@ -30,8 +30,8 @@ public class TodoController {
 	}
 
 	@GetMapping("/todo/{id}")
-	public Todo getTodo(@PathVariable int id) {
-		return todoService.getTodo(id);
+	public Todo getSingleTodo(@PathVariable int id) {
+		return todoService.getSingleTodo(id);
 	}
 
 	@PostMapping(value = "/todo")

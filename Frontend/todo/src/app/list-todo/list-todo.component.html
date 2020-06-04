@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let todo of todos">
-            <td>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
+            <td (click)='setTodo(todo)'>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
             <td>{{todo.isComplete}}</td>
             <td>{{todo.createdOn}}</td>
             <td>

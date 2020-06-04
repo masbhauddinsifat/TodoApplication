@@ -8,6 +8,7 @@ import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { ListTodoComponent } from './list-todo/list-todo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
+import { SingleTodoComponent } from './single-todo/single-todo.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HomeComponent } from './home/home.component';
     NavbarComponent,
     CreateTodoComponent,
     ListTodoComponent,
-    HomeComponent
+    HomeComponent,
+    SingleTodoComponent
   ],
   imports: [
     BrowserModule,

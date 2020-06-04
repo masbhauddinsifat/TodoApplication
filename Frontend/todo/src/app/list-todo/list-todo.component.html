@@ -1,2 +1,25 @@
-<p>list-todo works!</p>
-<p *ngFor="let todo of todos">{{todo.title}}</p>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th class="table-info" scope="col">Title</th>
+            <th class="table-info" scope="col">Status</th>
+            <th class="table-info" scope="col">Created On</th>
+            <th class="table-info" scope="col">Upadate</th>
+            <th class="table-info" scope="col">Delete</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let todo of todos">
+            <td>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
+            <td>{{todo.isComplete}}</td>
+            <td>{{todo.createdOn}}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-block">Edit</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-block">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

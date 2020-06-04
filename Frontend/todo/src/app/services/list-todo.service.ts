@@ -10,7 +10,7 @@ export class ListTodoService {
 
   constructor(private http: HttpClient) { }
 
-  public listOfTodo(link: string):Observable<TodoModel[]>{
+  public listOfTodo(link: string): Observable<TodoModel[]>{
     return this.http.get<TodoModel[]>(link);
   }
 }

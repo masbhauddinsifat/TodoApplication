@@ -1,0 +1,17 @@
+<div class="card text-center mt-3">
+    <div class="card-header">
+        <h1>Todo</h1>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Title: {{todo.title}}</h5>
+        <small>Created on {{todo.createdOn | date:'fullDate'}}</small>
+        <p *ngIf="todo.isComplete; else notComplete" class="card-text">
+            The task status is <span class="badge badge-success">Completed</span>
+        </p>
+        <ng-template #notComplete>
+            <p>Task is still <span class="badge badge-warning">Running</span></p>
+        </ng-template>
+        <a class="btn btn-success text-white">Edit</a>
+        <a class="btn btn-danger text-white ml-2">Delete</a>
+    </div>
+</div>

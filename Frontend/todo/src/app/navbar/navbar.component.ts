@@ -9,7 +9,7 @@ export class NavbarComponent implements OnInit {
 
   routes = [
     {link: 'home', name: 'Home'},
-    {link: 'todos', name: 'Todos'}
+    {link: 'todo', name: 'Todos'}
   ];
 
   constructor() { }

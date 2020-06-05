@@ -3,7 +3,7 @@
         <h1>Todo</h1>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Title: {{todo.title}}</h5>
+        <h5 class="card-title">Task: {{todo.title}}</h5>
         <small>Created on {{todo.createdOn | date:'fullDate'}}</small>
         <p *ngIf="todo.isComplete; else notComplete" class="card-text">
             The task status is <span class="badge badge-success">Completed</span>

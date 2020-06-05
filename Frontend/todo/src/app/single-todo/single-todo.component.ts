@@ -1,4 +1,5 @@
-import { ListTodoService } from 'src/app/services/list-todo.service';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { TodoService } from 'src/app/services/todo.service';
 import { TodoModel } from './../model/todo.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,11 +11,23 @@ import { Component, OnInit } from '@angular/core';
 export class SingleTodoComponent implements OnInit {
 
   public todo: TodoModel;
+  private todoId: number;
 
-  constructor(private todoService: ListTodoService) { }
+  constructor(
+    private todoService: TodoService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.todo = this.todoService.getTodo();
+    // this.todo = this.todoService.getTodo();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.todoId = parseInt(params.get('id'), 10)
+    });
+
+    const link = 'http://localhost:8080/todo/' + this.todoId;
+    this.todoService.getSingleTodo(link).subscribe((responce) => {
+      this.todo = responce;
+    });
   }
 
 }

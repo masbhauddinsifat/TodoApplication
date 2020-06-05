@@ -12,8 +12,12 @@
     <tbody>
         <tr *ngFor="let todo of todos">
             <td (click)='setTodo(todo)'>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
-            <td>{{todo.isComplete}}</td>
-            <td>{{todo.createdOn}}</td>
+            <!-- <td>{{todo.complete}}</td> -->
+            <td *ngIf="todo.complete; else notComplete">Complete</td>
+            <ng-template #notComplete>
+                <td>Running</td>    
+            </ng-template>
+            <td>{{todo.createdOn | date:'fullDate'}}</td>
             <td>
                 <button type="button" class="btn btn-success btn-block">Edit</button>
             </td>

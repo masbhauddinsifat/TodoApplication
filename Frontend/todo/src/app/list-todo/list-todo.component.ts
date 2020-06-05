@@ -26,7 +26,6 @@ export class ListTodoComponent implements OnInit {
   }
 
   setTodo(todo: TodoModel){
-    console.log(todo);
     this.todoList.setTodo(todo);
     this.router.navigate([todo.id], {relativeTo: this.route});
   }

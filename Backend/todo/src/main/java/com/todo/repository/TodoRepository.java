@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import com.todo.model.Response;
 import com.todo.model.Todo;
 
 @Repository
@@ -92,7 +95,7 @@ public class TodoRepository {
 	}
 
 	
-	public String addTodo(Todo todo) {
+	public Response addTodo(Todo todo) {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
@@ -108,10 +111,10 @@ public class TodoRepository {
 			e.printStackTrace();
 		}
 
-		return "Success";
+		return new Response(HttpServletResponse.SC_CREATED, "CREATED");
 	}
 
-	public String updateTodo(Todo todo) {
+	public Response updateTodo(Todo todo) {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
@@ -128,10 +131,10 @@ public class TodoRepository {
 			e.printStackTrace();
 		}
 		
-		return "Success";
+		return new Response(HttpServletResponse.SC_OK, "OK");
 	}
 
-	public String deleteTodo(int id) {
+	public Response deleteTodo(int id) {
 		try {
 			Connection con = DriverManager.getConnection(url, userName, password);
 
@@ -142,7 +145,7 @@ public class TodoRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "Success";
+		return new Response(HttpServletResponse.SC_OK, "OK");
 
 	}
 }

@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let todo of todos">
-            <td (click)='setTodo(todo)'>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
+            <td (click)='goSingleTodoPage(todo)'>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
             <!-- <td>{{todo.complete}}</td> -->
             <td *ngIf="todo.complete; else notComplete">Complete</td>
             <ng-template #notComplete>
@@ -19,7 +19,7 @@
             </ng-template>
             <td>{{todo.createdOn | date:'fullDate'}}</td>
             <td>
-                <button type="button" class="btn btn-success btn-block">Edit</button>
+                <button type="button" class="btn btn-success btn-block" (click)="goEditPage(todo.id)">Edit</button>
             </td>
             <td>
                 <button type="button" class="btn btn-danger btn-block">Delete</button>

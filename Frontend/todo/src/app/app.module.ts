@@ -1,30 +1,32 @@
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { ListTodoComponent } from './list-todo/list-todo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SingleTodoComponent } from './single-todo/single-todo.component';
+import { TodoComponent } from './todo/todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CreateTodoComponent,
     ListTodoComponent,
     HomeComponent,
-    SingleTodoComponent
+    SingleTodoComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

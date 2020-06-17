@@ -15,19 +15,23 @@ export class SingleTodoComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     // this.todo = this.todoService.getTodo();
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.todoId = parseInt(params.get('id'), 10)
+      this.todoId = parseInt(params.get('id'), 10);
     });
-
-    const link = 'http://localhost:8080/todo/' + this.todoId;
-    this.todoService.getSingleTodo(link).subscribe((responce) => {
+    this.todo  = new TodoModel(0, '', false, new Date());
+    this.todoService.getSingleTodo(this.todoId).subscribe((responce) => {
       this.todo = responce;
     });
+  }
+
+  moveToEditPage(){
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
 }

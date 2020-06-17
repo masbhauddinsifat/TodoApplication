@@ -1,0 +1,19 @@
+<form #editForm=ngForm (ngSubmit)="onSave()">
+    {{editForm.value|json}}
+    {{todo|json}}
+    <div class="form-group">
+        <label for="taskId">Task Id</label>
+        <input type="text" class="form-control" id="taskId" name="taskId" readonly  [(ngModel)]="todo.id">
+        <small id="emailHelp" class="form-text text-muted">Task id is not changeable.</small>
+      </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="email" class="form-control" id="title" name="title" [(ngModel)]="todo.title">
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="isComplete" name="isComplete" [(ngModel)]="todo.complete">
+      <label class="form-check-label" for="isComplete">Task is Complete</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-success ml-2" (click)="goBack()">Go Back</button>
+  </form>

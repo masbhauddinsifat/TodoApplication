@@ -3,7 +3,7 @@ export class TodoModel {
     constructor(
         public id: number,
         public title: string,
-        public isComplete: boolean,
+        public complete: boolean,
         public createdOn: Date
     ){
 

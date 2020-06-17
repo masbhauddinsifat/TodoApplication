@@ -1,5 +1,5 @@
 import { TodoModel } from '../model/todo.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -11,18 +11,15 @@ export class TodoService {
   singleTodo: TodoModel;
   constructor(private http: HttpClient) { }
 
-  public listOfTodo(link: string): Observable<TodoModel[]>{
-    return this.http.get<TodoModel[]>(link);
+  public listOfTodo(): Observable<TodoModel[]>{
+    return this.http.get<TodoModel[]>('http://localhost:8080/todo');
   }
 
-  public getSingleTodo(link: string): Observable<TodoModel>{
-    return this.http.get<TodoModel>(link);
+  public getSingleTodo(id: number): Observable<TodoModel>{
+    return this.http.get<TodoModel>(`http://localhost:8080/todo/${id}`);
   }
-  // public setTodo(data: TodoModel){
-  //   this.singleTodo = data;
-  // }
 
-  // public getTodo(){
-  //   return this.singleTodo;
-  // }
+  public updateTodo(id: number, body: TodoModel){
+    return this.http.put(`http://localhost:8080/todo/${id}`, body);
+  }
 }

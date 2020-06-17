@@ -20,13 +20,18 @@ export class ListTodoComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.todoService.listOfTodo('http://localhost:8080/todo').subscribe(
+    this.todoService.listOfTodo().subscribe(
       (responce) => this.todos = responce
     );
   }
 
-  setTodo(todo: TodoModel){
+  goSingleTodoPage(todo: TodoModel){
     this.router.navigate([todo.id], {relativeTo: this.route});
+  }
+
+  goEditPage(todoId: number){
+    const url = todoId + '/edit';
+    this.router.navigate([url], {relativeTo: this.route});
   }
 
 }

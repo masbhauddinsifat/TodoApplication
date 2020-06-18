@@ -1,3 +1,13 @@
+<div *ngIf="response">
+    <div *ngIf="response.statusCode == 200; else somethingWrong" class="alert alert-success" role="alert">
+        Delete Successful.
+    </div>
+    <ng-template #somethingWrong>
+        <div class="alert alert-warning" role="alert">
+            Something Went Wrong. please try again...
+        </div>
+    </ng-template>
+</div>
 <table class="table mt-3">
     <thead>
         <tr>
@@ -11,18 +21,25 @@
     </thead>
     <tbody>
         <tr *ngFor="let todo of todos">
-            <td (click)='goSingleTodoPage(todo)'>{{todo.title.length < 25 ? todo.title : todo.title|slice:1:25}}...</td>
-            <!-- <td>{{todo.complete}}</td> -->
+            <!-- title -->
+            <td *ngIf="todo.title.length > 25; else anotherView" (click)='goSingleTodoPage(todo)'>{{ todo.title|slice:0:25 }}...</td>
+            <ng-template #anotherView>
+                <td (click)='goSingleTodoPage(todo)'>{{ todo.title }}</td>
+            </ng-template>
+
+            <!-- CompleteStauts -->
             <td *ngIf="todo.complete; else notComplete">Complete</td>
             <ng-template #notComplete>
                 <td>Running</td>    
             </ng-template>
+            
+            <!-- Date -->
             <td>{{todo.createdOn | date:'fullDate'}}</td>
             <td>
                 <button type="button" class="btn btn-success btn-block" (click)="goEditPage(todo.id)">Edit</button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger btn-block">Delete</button>
+                <button type="button" class="btn btn-danger btn-block" (click)="onDelete(todo)">Delete</button>
             </td>
         </tr>
     </tbody>

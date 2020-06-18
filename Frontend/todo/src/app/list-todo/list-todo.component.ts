@@ -11,6 +11,7 @@ import { TodoService } from '../services/todo.service';
 })
 export class ListTodoComponent implements OnInit {
 
+  response: any;
   todos: TodoModel[];
 
   constructor(
@@ -32,6 +33,18 @@ export class ListTodoComponent implements OnInit {
   goEditPage(todoId: number){
     const url = todoId + '/edit';
     this.router.navigate([url], {relativeTo: this.route});
+  }
+
+  onDelete(todo: TodoModel){
+    this.todoService.deleteTodo(todo.id).subscribe(
+      response => {
+        this.response = response;
+        if (this.response.statusCode === 200){
+          const index = this.todos.indexOf(todo);
+          this.todos.splice(index, 1);
+        }
+      }
+    );
   }
 
 }

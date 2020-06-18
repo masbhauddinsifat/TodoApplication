@@ -22,4 +22,8 @@ export class TodoService {
   public updateTodo(id: number, body: TodoModel){
     return this.http.put(`http://localhost:8080/todo/${id}`, body);
   }
+
+  public deleteTodo(id: number){
+    return this.http.delete(`http://localhost:8080/todo/${id}`);
+  }
 }

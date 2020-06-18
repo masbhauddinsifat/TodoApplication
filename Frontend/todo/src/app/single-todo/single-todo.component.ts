@@ -34,4 +34,11 @@ export class SingleTodoComponent implements OnInit {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
+  onDelete(){
+    this.todoService.deleteTodo(this.todoId).subscribe(
+      response => {
+         this.router.navigate([{id: this.todoId}], {relativeTo: this.route.parent});
+        }
+    );
+  }
 }
